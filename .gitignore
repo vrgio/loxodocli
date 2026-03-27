@@ -1,6 +1,7 @@
 *.sw?
 /target/
 __test/
+src/bin/
 
 
 # Added by cargo
