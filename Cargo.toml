@@ -6,3 +6,4 @@ edition = "2024"
 [dependencies]
 megalodon = "1.2.1"
 clap = { version = "4.6.0", features = ["derive"] }
+tokio = "1.50.0"
