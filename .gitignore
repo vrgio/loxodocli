@@ -1,0 +1,8 @@
+*.sw?
+/target/
+__test/
+
+
+# Added by cargo
+
+/target
