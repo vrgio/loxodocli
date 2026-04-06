@@ -1,7 +1,11 @@
 use clap::{Parser, Subcommand};
 
+mod config;
+
+use crate::config::Config;
+
 #[derive(Parser)]
-#[command(version, about, long_about = None)]
+#[command(name = "loxodocli")]
 struct Cli {
     #[command(subcommand)]
     command: Option<Commands>,
@@ -23,7 +27,7 @@ fn main() {
             println!("{}",&instance);
         }
         None => {
-            println!("nothing");
+            println!("Run: loxodocli init --instance <INSTANCE>");
         }
     }
 }
