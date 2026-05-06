@@ -1,8 +1,7 @@
 use clap::{Parser, Subcommand};
 
+mod auth;
 mod config;
-
-use crate::config::Config;
 
 #[derive(Parser)]
 #[command(name = "loxodocli")]
@@ -19,15 +18,26 @@ enum Commands {
     },
 }
 
-fn main() {
+#[tokio::main]
+async fn main() -> anyhow::Result<()> {
     let cli = Cli::parse();
 
     match &cli.command {
         Some(Commands::Init { instance }) => {
-            println!("{}",&instance);
+            let oauth = auth::run_oauth(instance).await?;
+
+            let config = config::Config {
+                url: instance.clone(),
+                access_token: oauth.access_token,
+            };
+
+            config.save()?;
+            println!("Config ok, run loxodocli");
         }
         None => {
             println!("Run: loxodocli init --instance <INSTANCE>");
         }
     }
+
+    Ok(())
 }
